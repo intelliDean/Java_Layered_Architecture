@@ -1,6 +1,8 @@
 package services;
 
 import data.models.Post;
+import data.repositories.PostRepoImpl;
+import data.repositories.RepoOfPost;
 import dtos.requests.CreatePostRequests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +23,18 @@ class PostServicesImplTest {
         postRequest.setBody("the body");
         postRequest.setTitle("title");
         postServices.createPost(postRequest);
-        assertEquals(1L, postServices.viewAllPost().size());
+
+        CreatePostRequests req = new CreatePostRequests();
+        req.setBody("the new body");
+        req.setTitle("new title");
+        postServices.createPost(req);
+
+        CreatePostRequests reqs =  new CreatePostRequests();
+        reqs.setTitle("title3");
+        reqs.setBody("body3");
+        postServices.createPost(reqs);
+        assertEquals(3, reqs.getId());
+        assertEquals(3L, postServices.numberOfPosts());
     }
 
     @Test
@@ -35,19 +48,81 @@ class PostServicesImplTest {
         postRequest.setTitle("new title");
         postServices.createPost(postRequest);
 
-        assertEquals(1L, postServices.viewAllPost().size());
+        assertEquals(1L, postServices.numberOfPosts());
+    }
+    @Test
+    void deletePostUsingId() {
+        postRequest.setBody("the body");
+        postRequest.setTitle("title");
+        postServices.createPost(postRequest);
 
+        CreatePostRequests req = new CreatePostRequests();
+        req.setBody("the new body");
+        req.setTitle("new title");
+        postServices.createPost(req);
 
+        CreatePostRequests reqs =  new CreatePostRequests();
+        reqs.setTitle("title3");
+        reqs.setBody("body3");
+        postServices.createPost(reqs);
 
+        assertEquals(3, reqs.getId());
+        assertEquals(3L, postServices.numberOfPosts());
+
+        postServices.deletePost(2);
+
+        assertEquals(2L, postServices.numberOfPosts());
+    }
+
+    @Test
+    void deleteALlPosts() {
+     postRequest.setBody("the body");
+        postRequest.setTitle("title");
+        postServices.createPost(postRequest);
+
+        CreatePostRequests req = new CreatePostRequests();
+        req.setBody("the new body");
+        req.setTitle("new title");
+        postServices.createPost(req);
+
+        CreatePostRequests reqs =  new CreatePostRequests();
+        reqs.setTitle("title3");
+        reqs.setBody("body3");
+        postServices.createPost(reqs);
+
+        assertEquals(3, reqs.getId());
+        postServices.deletePost(2);
+
+        assertEquals(2, postServices.numberOfPosts());
+
+        CreatePostRequests real =  new CreatePostRequests();
+        real.setTitle("title3");
+        real.setBody("body3");
+        postServices.createPost(real);
+
+        assertEquals(3L, postServices.numberOfPosts());
+        assertEquals(4, real.getId());
+
+        postServices.deleteAll();
+
+        assertEquals(0, postServices.numberOfPosts());
 
     }
 //    @Test
 //    void viewPost() {
-//        postRequest.setTitle("title");
-//        postRequest.setBody("the body");
+//        RepoOfPost repo = new PostRepoImpl();
 //        Post post = new Post();
-//        postServices.createPost(postRequest);
-//        assertEquals(postServices.createPost(postRequest), postServices.viewPost(postRequest.getId()));
+//        post.setTitle("title");
+//        post.setBody("the body");
+//        repo.save(post);
+//
+//        Post post1 = new Post();
+//        post1.setTitle("title1");
+//        post1.setBody("the body1");
+//        repo.save(post1);
+//
+//        assertEquals(2L, postServices.numberOfPosts());
+//
 //
 //    }
 

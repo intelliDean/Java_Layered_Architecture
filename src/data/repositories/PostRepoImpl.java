@@ -52,15 +52,20 @@ public class PostRepoImpl implements RepoOfPost{
 
     @Override
     public void delete(int id) {
+        int index = getIndex(id);
+        if (index != -1) {
+            postDb.remove(index);
+        }
+    }
+
+    private int getIndex(int id) {
         int index = -1;
         for (int i = 0; i < postDb.size(); i++) {
             if (postDb.get(i).getId() == id) {
                 index = i;
             }
         }
-        if (index != -1) {
-            postDb.remove(index);
-        }
+        return index;
     }
 
     @Override
