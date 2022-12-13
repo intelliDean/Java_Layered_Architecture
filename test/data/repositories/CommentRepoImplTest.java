@@ -1,6 +1,8 @@
 package data.repositories;
 
-import data.models.Comment;
+import dean.blog.project.data.models.Comment;
+import dean.blog.project.data.repositories.CommentRepoImpl;
+import dean.blog.project.data.repositories.RepoOfComment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
