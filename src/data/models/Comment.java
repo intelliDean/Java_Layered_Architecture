@@ -1,16 +1,17 @@
 package data.models;
+
 // model is the POJO, where you have the setters and getters
 public class Comment {
-private String name;
-private int id;
-private String comment;
+    private int id;
+    private String userName;
+    private String comment;
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public int getId() {
@@ -25,7 +26,7 @@ private String comment;
         return comment;
     }
 
-    public void setComment(String comment) {
+    public void makeComment(String comment) {
         this.comment = comment;
     }
 }

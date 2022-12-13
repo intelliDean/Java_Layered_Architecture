@@ -3,15 +3,15 @@ package services;
 import data.models.Post;
 import data.repositories.PostRepoImpl;
 import data.repositories.RepoOfPost;
-import dtos.requests.CreateHostRequests;
+import dtos.requests.CreatePostRequests;
 
-import java.util.Collection;
 import java.util.List;
 
 public class PostServicesImpl implements PostServices{
     private RepoOfPost repoOfPost = new PostRepoImpl();
     @Override
-    public void createPost(CreateHostRequests postRequest) {
+    public void createPost(CreatePostRequests postRequest) {
+
         Post post = new Post();
         post.setTitle(postRequest.getTitle());
         post.setBody(postRequest.getBody());
@@ -19,8 +19,11 @@ public class PostServicesImpl implements PostServices{
     }
 
     @Override
-    public void updatePost(int id, String title, String body) {
+    public void updatePost(CreatePostRequests postRequest) {
+        if (postRequest.getId() != 0) {
+          Post post = repoOfPost.findById(postRequest.getId());
 
+        }
     }
 
     @Override

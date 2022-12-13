@@ -6,14 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PostRepoImpl implements RepoOfPost{
+    private int idCounter;
     private List<Post> postDb = new ArrayList<>();
     @Override
     public Post save(Post post) {
         if (post.getId() != 0) {
             update(post);
         } else {
-        post.setId(postDb.size() + 1);
         postDb.add(post);
+        post.setId(++idCounter);
         }
         return post;
     }
@@ -46,14 +47,26 @@ public class PostRepoImpl implements RepoOfPost{
 
     @Override
     public void delete(Post post) {
-
+        postDb.removeIf(toDelete->toDelete.equals(post));
     }
 
     @Override
     public void delete(int id) {
-        Post post = findById(id);
-        if (post != null) {
-            postDb.remove(post);
+        int index = -1;
+        for (int i = 0; i < postDb.size(); i++) {
+            if (postDb.get(i).getId() == id) {
+                index = i;
+            }
+        }
+        if (index != -1) {
+            postDb.remove(index);
+        }
+    }
+
+    @Override
+    public void deleteAll() {
+        for (int i = 0; i < postDb.size(); i++) {
+            postDb.removeAll(findAll());
         }
     }
 }

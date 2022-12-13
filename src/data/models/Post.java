@@ -6,10 +6,10 @@ import java.util.List;
 
 // model is the POJO, where you have the setters and getters
 public class Post {
-    private String title;
     private int id;
-    private LocalDateTime createTime = LocalDateTime.now();
+    private String title;
     private String body;
+    private LocalDateTime createTime = LocalDateTime.now();
     private List<Comment> comments = new ArrayList<>();
 
     public List<Comment> getComments() {
