@@ -1,13 +1,16 @@
 package dean.blog.project;
 
 import dean.blog.project.controllers.PostController;
+import dean.blog.project.data.models.Post;
 import dean.blog.project.dtos.requests.CreatePostRequests;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import javax.swing.*;
 import java.util.Scanner;
 @SpringBootApplication
+@EnableMongoRepositories
 public class Main {
     private static Scanner in = new Scanner(System.in);
     private static PostController postController = new PostController();
@@ -42,7 +45,9 @@ public class Main {
 
     public static void viewPost() {
         String userInput = input("enter post id");
-        print(postController.viewPost(Integer.parseInt(userInput)).toString());
+        //print(postController.viewPost(Integer.parseInt(userInput)).toString());
+       Post post = postController.viewPost(userInput);
+       print(post);
         displayMainMenu();
     }
     public static void exitApp() {
@@ -54,5 +59,9 @@ public class Main {
     }
     public static void print(String prompt) {
         JOptionPane.showMessageDialog(null, prompt);
+    }
+
+    public static void print(Post post) {
+        JOptionPane.showMessageDialog(null, post);
     }
 }

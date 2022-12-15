@@ -15,7 +15,7 @@ public class PostController {
         return "Successful";
     }
     @GetMapping("/post/{postId}")
-    public Post viewPost(@PathVariable int postId) {
+    public Post viewPost(@PathVariable String postId) {
         return postServices.viewPost(postId);
     }
 }

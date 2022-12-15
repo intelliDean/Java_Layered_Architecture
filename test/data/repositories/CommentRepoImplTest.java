@@ -3,17 +3,25 @@ package data.repositories;
 import dean.blog.project.data.models.Comment;
 import dean.blog.project.data.repositories.CommentRepoImpl;
 import dean.blog.project.data.repositories.RepoOfComment;
+import dean.blog.project.dtos.requests.CreateCommentRequest;
+import dean.blog.project.dtos.requests.CreatePostRequests;
+import dean.blog.project.services.CommentServices;
+import dean.blog.project.services.CommentServicesImpl;
+import dean.blog.project.services.PostServices;
+import dean.blog.project.services.PostServicesImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CommentRepoImplTest {
+
     RepoOfComment repoCom;
 
     @BeforeEach
     void setUp() {
         repoCom = new CommentRepoImpl();
+
     }
     @Test
     void saveComment() {
@@ -149,8 +157,8 @@ class CommentRepoImplTest {
         repoCom.deleteAll();
         assertEquals(0, repoCom.count());
 
-
     }
+
 
 
 }

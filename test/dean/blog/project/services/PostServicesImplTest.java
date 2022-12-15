@@ -1,5 +1,6 @@
 package dean.blog.project.services;
 
+import dean.blog.project.data.models.Comment;
 import dean.blog.project.data.models.Post;
 import dean.blog.project.dtos.requests.CreatePostRequests;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,7 +43,7 @@ class PostServicesImplTest {
         postRequest.setTitle("title");
         postServices.createPost(postRequest);
 
-        postRequest.setId(1);
+        postRequest.setId("1");
         postRequest.setBody("new body");
         postRequest.setTitle("new title");
         postServices.createPost(postRequest);
@@ -141,6 +142,21 @@ class PostServicesImplTest {
 
         assertEquals(1, postServices.numberOfPosts());
     }
+    @Test
+    void addComment() {
+        CreatePostRequests create = new CreatePostRequests();
+        //Post post = new Post();
+        create.setTitle("title");
+        create.setBody("body");
+        postServices.createPost(create);
 
+        Comment comment = new Comment();
+        comment.makeComment("i love me");
+        postServices.addComment(1, comment);
+
+        Post foundPost = postServices.viewPost(1);
+        assertEquals(1, foundPost.getComments().size());
+        assertEquals("i love me", foundPost.getComments().get(0).getComment());
+    }
 
 }

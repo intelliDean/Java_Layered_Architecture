@@ -1,8 +1,14 @@
 package dean.blog.project.data.models;
 
 // model is the POJO, where you have the setters and getters
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class Comment {
-    private int id;
+    @Id
+    private String id;
     private String userName;
     private String comment;
 
@@ -14,11 +20,11 @@ public class Comment {
         this.userName = userName;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

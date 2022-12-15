@@ -1,15 +1,22 @@
 package dean.blog.project.data.models;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 // model is the POJO, where you have the setters and getters
+@Document
 public class Post {
-    private int id;
+    @Id
+    private String id;
     private String title;
     private String body;
     private LocalDateTime createTime = LocalDateTime.now();
+    @DBRef
     private List<Comment> comments = new ArrayList<>();
 
     public List<Comment> getComments() {
@@ -28,11 +35,11 @@ public class Post {
         this.title = title;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

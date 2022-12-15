@@ -48,7 +48,7 @@ class PostRepoImplTest {
 
         assertEquals(2L, repoPost.count());
         assertEquals("body of post2", post2.getBody());
-        assertEquals(post2, repoPost.findById(2));
+        assertEquals(post2, repoPost.findById("2"));
     }
     @Test
     void findByIdReturnsNullWhenIdNotFound() {
@@ -67,7 +67,7 @@ class PostRepoImplTest {
         repoPost.save(post2);
 
         assertEquals(2, repoPost.count());
-        assertNull(repoPost.findById(3));
+        assertNull(repoPost.findById("3"));
     }
 
     @Test
@@ -80,13 +80,13 @@ class PostRepoImplTest {
         repoPost.save(post);
 
         Post post2 = new Post();
-        post2.setId(1);
+        post2.setId("1");
         post2.setTitle("title2");
         post2.setBody("new body2");
         repoPost.save(post2);
 
         assertEquals(1L, repoPost.count());
-        assertEquals(post, repoPost.findById(1));
+        assertEquals(post, repoPost.findById("1"));
         assertEquals("title2", post.getTitle());
         assertEquals("new body2", post.getBody());
     }
@@ -208,7 +208,6 @@ class PostRepoImplTest {
         repoPost.deleteAll();
 
         assertEquals(0, repoPost.count());
-
-
     }
+
 }
